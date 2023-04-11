@@ -2,20 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('git') {
             steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+               git credentialsId: 'git_credentials', url: 'https://github.com/dburcombe/ansible_work.git' branch: 'test'
+           }
         }
     }
 }
