@@ -1,5 +1,4 @@
 [apache]
-20.203.175.109 ansible_ssh_user=dburc
 20.87.214.18 ansible_ssh_user=dburc
 20.164.36.156 ansible_ssh_user=dburc
 20.87.219.179 ansible_ssh_user=dburc
