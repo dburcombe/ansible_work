@@ -1,7 +1,7 @@
 [apache]
-#20.87.214.18 ansible_ssh_user=dburc
-20.164.36.156 ansible_ssh_user=dburc
-20.87.219.179 ansible_ssh_user=dburc
-#20.164.36.156 ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
-#20.87.219.179 ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+20.87.214.18 ansible_ssh_user=dburc ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+#20.164.36.156 ansible_ssh_user=dburc
+#20.87.219.179 ansible_ssh_user=dburc
+20.164.36.156  ansible_ssh_user=dburc ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+20.87.219.179  ansible_ssh_user=dburc ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
 
