@@ -1,0 +1,67 @@
+---
+- hosts: apache
+  sudo: yes 
+  vars:
+    domain: hello.com      
+    domain_2: bye.com
+    domain_3: good_morning.com
+  tasks:
+    - name: install apache2
+      apt: name=apache2 update_cache=yes state=latest
+    
+    - name: enabled mod_rewrite
+      apache2_module: name=rewrite state=present
+      notify:
+        - restart apache2
+
+    - name: create virtual host files
+      template: src=virtualhost.conf dest=/etc/apache2/sites-available/{{ domain }}.conf 
+
+    - name: create virtual host files
+      template: src=virtualhost.conf dest=/etc/apache2/sites-available/{{ domain_2 }}.conf
+
+    - name: create virtual host files
+      template: src=virtualhost.conf dest=/etc/apache2/sites-available/{{ domain_3 }}.conf
+    
+    - name: Creates directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - /var/www/{{ domain }}/public_html      
+        - /var/www/{{ domain_2 }}/public_html      
+        - /var/www/{{ domain_3 }}/public_html      
+         
+    - name: create web page files
+      template: src=index.html dest=/var/www/{{ domain }}.com/public_html/index.html
+
+    - name: create web page files
+      template: src=index.html dest=/var/www/{{ domain_2 }}.com/public_html/index.html
+
+    - name: create web page files
+      template: src=index.html dest=/var/www/{{ domain_3 }}.com/public_html/index.html
+
+    - name: enable the new virtual host files 
+      command: a2ensite {{ domain }}.conf
+      args:
+        creates: /etc/apache2/sites-enabled/{{ domain }}.conf
+      notify:
+        - restart apache2 
+
+    - name: enable the new virtual host files 
+      command: a2ensite {{ domain_2 }}.conf
+      args:
+        creates: /etc/apache2/sites-enabled/{{ domain }}.conf
+      notify:
+        - restart apache2
+
+    - name: enable the new virtual host files 
+      command: a2ensite {{ domain_3 }}.conf
+      args:
+        creates: /etc/apache2/sites-enabled/{{ domain }}.conf
+      notify:
+        - restart apache2
+
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted          
